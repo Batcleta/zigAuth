@@ -1,7 +1,8 @@
-module.exports = (router) => {
-  router.get("/", (req, res) => {
-    res.send("area do usuário");
-  });
+const express = require("express");
+const router = express.Router();
 
-  return router;
-};
+router.get("/", (req, res) => {
+  res.send("area do usuário");
+});
+
+module.exports = router;
