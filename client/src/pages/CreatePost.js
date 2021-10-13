@@ -2,10 +2,16 @@ import React from "react";
 import api from "../api";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { useHistory } from "react-router-dom";
 
 function CreatePost() {
+  let history = useHistory();
+
   const onSubmit = (data) => {
-    api.post("/posts", data).then((resp) => console.log(resp));
+    api.post("/posts", data).then((resp) => {
+      console.log(resp);
+      history.push("/");
+    });
   };
 
   const initialValues = {

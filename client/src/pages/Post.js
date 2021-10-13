@@ -12,6 +12,8 @@ function Post() {
     });
   }, []);
 
+  console.log(post);
+
   return (
     <div>
       <h3>{post?.title}</h3>
