@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 
 import Home from "./pages/Home";
 import CreatePost from "./pages/CreatePost";
+import Post from "./pages/Post";
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/createpost" component={CreatePost} />
-          <Route path="/post/:id" component={CreatePost} />
+          <Route path="/post/:id" component={Post} />
         </Switch>
       </Router>
     </div>

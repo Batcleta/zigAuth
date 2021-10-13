@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import api from "../api";
+import { useHistory } from "react-router-dom";
 
 function Home() {
+  let history = useHistory();
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -9,6 +11,10 @@ function Home() {
       setPosts(resp.data);
     });
   }, []);
+
+  const onCLickPost = (id) => {
+    history.push(`/post/${id}`);
+  };
 
   return (
     <div>
@@ -25,6 +31,7 @@ function Home() {
             -0.7px -2.5px 10px rgba(0, 0, 0, 0.035),
             -0.1px -0.3px 17.9px rgba(0, 0, 0, 0.042)`,
           }}
+          onClick={() => onCLickPost(item.id)}
         >
           <h3 style={{ fontWeight: "bold" }}>{item.title}</h3>
           <p style={{ color: "#4f4f4f", fontWeight: "normal" }}>
