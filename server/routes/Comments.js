@@ -7,6 +7,7 @@ router.get("/:postId", async (req, res) => {
   const comments = await Comments.findAll({ where: { PostId: postId } });
   res.json(comments);
 });
+
 router.post("/", async (req, res) => {
   const comment = req.body;
   await Comments.create(comment);
