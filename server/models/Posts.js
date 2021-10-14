@@ -8,10 +8,6 @@ module.exports = (sequelize, Datatypes) => {
       type: Datatypes.TEXT,
       allowNull: false,
     },
-    username: {
-      type: Datatypes.STRING,
-      allowNull: false,
-    },
   });
 
   Posts.associate = ({ Comments }) => {

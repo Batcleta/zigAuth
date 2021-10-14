@@ -4,10 +4,6 @@ module.exports = (sequelize, Datatypes) => {
       type: Datatypes.STRING,
       allowNull: false,
     },
-    username: {
-      type: Datatypes.STRING,
-      allowNull: false,
-    },
   });
 
   return Comments;

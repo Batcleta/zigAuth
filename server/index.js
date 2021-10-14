@@ -32,8 +32,12 @@ fs.readdirSync(path.join(__dirname, "routes"))
   });
 
 const port = 3001;
-db.sequelize.sync().then(() => {
-  app.listen(port, () => {
-    console.log(`server running on port: ${port}`);
+db.sequelize
+  .sync({
+    // force: true
+  })
+  .then(() => {
+    app.listen(port, () => {
+      console.log(`server running on port: ${port}`);
+    });
   });
-});
