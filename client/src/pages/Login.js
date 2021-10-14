@@ -10,9 +10,12 @@ function Login() {
 
   const onSubmit = (data) => {
     api.post("/users/login", data).then((resp) => {
-      console.log(resp);
-      setLogMessage(resp.data);
-      // history.push("/");
+      if (resp.data.error) {
+        setLogMessage(resp.data);
+      } else {
+        sessionStorage.setItem("apiKey", resp.data);
+        history.push("/");
+      }
     });
   };
 
@@ -40,9 +43,7 @@ function Login() {
         <Form>
           <label>Username: </label>
           <ErrorMessage name="username" component="small" />
-          {logMessage?.error && <small> fodeu: {logMessage?.error}</small>}
-
-          {!logMessage?.error && <p> Aeee: {logMessage?.logInfo}</p>}
+          {logMessage && <small> {logMessage?.error}</small>}
           <Field
             // autocomplete="off"
             id="inputCreatePost"

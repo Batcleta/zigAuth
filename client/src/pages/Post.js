@@ -20,18 +20,32 @@ function Post() {
 
   const onSubmit = (data) => {
     api
-      .post("/comments", {
-        commentBody: newComment,
-        postId: id,
-        username: "washington F",
-      })
-      .then((resp) => {
-        const newCommentBody = {
+      .post(
+        "/comments",
+        {
           commentBody: newComment,
-          username: "washington.f",
-        };
-        setComment([...comment, newCommentBody]);
-        setNewComment("");
+          postId: id,
+        },
+        {
+          headers: {
+            apiKey: sessionStorage.getItem("apiKey"),
+          },
+        }
+      )
+      .then((resp) => {
+        // necessário verificar se nao retornou erro para poder criar a gravação de visualização temporária
+        // caso essa tratativa não seja feita, o js irá criar a visualização do comentário mesmo assim
+        // e irá apagar após o refresh de página
+        if (resp.data.error) {
+          alert("Por favor, faça o login para comentar");
+        } else {
+          // Adiciona comentário criado no objeto para visualização rápida após a criação, sem a necessidade de recarregar a página
+          const newCommentBody = {
+            commentBody: newComment,
+          };
+          setComment([...comment, newCommentBody]);
+          setNewComment("");
+        }
       });
   };
 

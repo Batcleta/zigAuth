@@ -3,6 +3,8 @@ const router = express.Router();
 const { Users } = require("../models");
 const bcrypt = require("bcrypt");
 
+const { sign } = require("jsonwebtoken");
+
 router.post("/", async (req, res) => {
   const { username, password } = req.body;
   bcrypt.hash(password, 10).then((hash) => {
@@ -29,7 +31,12 @@ router.post("/login", async (req, res) => {
         error: "A senha informada nao corresponde com a cadastrada",
       });
     }
-    res.json({ logInfo: "You are logged In" });
+
+    const acessToken = sign(
+      { username: user.username, id: user.id },
+      "importantsecret"
+    );
+    res.json(acessToken);
   });
 });
 
