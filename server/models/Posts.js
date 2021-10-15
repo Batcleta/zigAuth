@@ -10,7 +10,11 @@ module.exports = (sequelize, Datatypes) => {
     },
   });
 
-  Posts.associate = ({ Comments }) => {
+  Posts.associate = ({ Comments, Users }) => {
+    Posts.belongsTo(Users, {
+      as: "user",
+    });
+
     Posts.hasMany(Comments, {
       as: "comments",
       onDelete: "cascade",

@@ -37,7 +37,10 @@ function Home() {
           <p style={{ color: "#4f4f4f", fontWeight: "normal" }}>
             {item.postText}
           </p>
-          <h3 style={{ fontSize: ".8rem" }}> {item.username}</h3>
+
+          {item.user.username && (
+            <p style={{ fontSize: ".8rem" }}>{item.user.username}</p>
+          )}
         </div>
       ))}
     </div>

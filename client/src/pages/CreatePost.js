@@ -8,25 +8,29 @@ function CreatePost() {
   let history = useHistory();
 
   const onSubmit = (data) => {
-    api.post("/posts", data).then((resp) => {
-      console.log(resp);
-      history.push("/");
-    });
+    api
+      .post("/posts", data, {
+        headers: {
+          apiKey: sessionStorage.getItem("apiKey"),
+        },
+      })
+      .then((resp) => {
+        if (resp.data.error) {
+          alert("Por favor, faça o login para comentar");
+        } else {
+          history.push("/");
+        }
+      });
   };
 
   const initialValues = {
     title: "",
     postText: "",
-    username: "",
   };
 
   const validationSchema = Yup.object().shape({
     title: Yup.string().required("You must input a title"),
     postText: Yup.string().required("You must input a post description"),
-    username: Yup.string()
-      .min(3)
-      .max(15)
-      .required("you must input your username"),
   });
 
   return (
@@ -52,14 +56,6 @@ function CreatePost() {
             id="inputCreatePost"
             name="postText"
             placeholder="(ex: post...)"
-          />
-          <label>Username: </label>
-          <ErrorMessage name="username" component="small" />
-          <Field
-            // autocomplete="off"
-            id="inputCreatePost"
-            name="username"
-            placeholder="(ex: Washington...)"
           />
 
           <button type="submit">Create a post</button>

@@ -54,7 +54,12 @@ function Post() {
       <div>
         <h3>{post?.title}</h3>
         <p>{post?.postText}</p>
-        <p>{post?.username}</p>
+        {post?.user.username && (
+          <p>
+            {" "}
+            <strong>Created by: {post?.user.username}</strong>
+          </p>
+        )}
       </div>
       <div>
         <div>
@@ -72,7 +77,7 @@ function Post() {
           {comment.map((item, key) => (
             <div key={key}>
               <h4>{item.commentBody}</h4>
-              <p>{item.username}</p>
+              <p>{item.user.username}</p>
             </div>
           ))}
         </div>
