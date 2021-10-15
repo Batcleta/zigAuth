@@ -45,9 +45,11 @@ function Post() {
           const newCommentBody = {
             commentBody: newComment,
             user: { username: resp.data.username },
+            id: resp.data.dataValues.id,
           };
           setComment([...comment, newCommentBody]);
           setNewComment("");
+          console.log(newCommentBody);
         }
       });
   };
@@ -108,7 +110,7 @@ function Post() {
               )}
               {/* check if not a moderator or adm */}
               {authState.username === item.user.username && (
-                <button onClick={() => onDelete(item.id)}> Xuser</button>
+                <button onClick={() => onDelete(item.id)}> Xe</button>
               )}
             </div>
           ))}
