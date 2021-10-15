@@ -10,7 +10,7 @@ module.exports = (sequelize, Datatypes) => {
     },
   });
 
-  Users.associate = ({ Posts, Comments }) => {
+  Users.associate = ({ Posts, Comments, Likes }) => {
     Users.hasMany(Posts, {
       as: "Posts",
       onDelete: "cascade",
@@ -19,6 +19,12 @@ module.exports = (sequelize, Datatypes) => {
 
     Users.hasMany(Comments, {
       as: "comments",
+      onDelete: "cascade",
+      foreignKey: "userId",
+    });
+
+    Users.hasMany(Likes, {
+      as: "likes",
       onDelete: "cascade",
       foreignKey: "userId",
     });

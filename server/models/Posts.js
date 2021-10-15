@@ -10,13 +10,19 @@ module.exports = (sequelize, Datatypes) => {
     },
   });
 
-  Posts.associate = ({ Comments, Users }) => {
+  Posts.associate = ({ Comments, Users, Likes }) => {
     Posts.belongsTo(Users, {
       as: "user",
     });
 
     Posts.hasMany(Comments, {
       as: "comments",
+      onDelete: "cascade",
+      foreignKey: "postId",
+    });
+
+    Posts.hasMany(Likes, {
+      as: "likes",
       onDelete: "cascade",
       foreignKey: "postId",
     });

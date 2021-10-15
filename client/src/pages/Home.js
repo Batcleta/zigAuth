@@ -16,6 +16,23 @@ function Home() {
     history.push(`/post/${id}`);
   };
 
+  const likeAPost = (value) => {
+    api
+      .post(
+        "/likes",
+        {
+          postId: value,
+        },
+        {
+          headers: {
+            apiKey: localStorage.getItem("apiKey"),
+          },
+        }
+      )
+      // implementar aqui essa porra
+      .then();
+  };
+
   return (
     <div>
       {posts.map((item, index) => (
@@ -31,16 +48,25 @@ function Home() {
             -0.7px -2.5px 10px rgba(0, 0, 0, 0.035),
             -0.1px -0.3px 17.9px rgba(0, 0, 0, 0.042)`,
           }}
-          onClick={() => onCLickPost(item.id)}
         >
-          <h3 style={{ fontWeight: "bold" }}>{item.title}</h3>
-          <p style={{ color: "#4f4f4f", fontWeight: "normal" }}>
-            {item.postText}
-          </p>
+          <div onClick={() => onCLickPost(item.id)}>
+            <h3 style={{ fontWeight: "bold" }}>{item.title}</h3>
+            <p style={{ color: "#4f4f4f", fontWeight: "normal" }}>
+              {item.postText}
+            </p>
 
-          {item.user.username && (
-            <p style={{ fontSize: ".8rem" }}>{item.user.username}</p>
-          )}
+            {item.user.username && (
+              <p style={{ fontSize: ".8rem" }}>{item.user.username}</p>
+            )}
+          </div>
+
+          <button
+            onClick={() => {
+              likeAPost(item.id);
+            }}
+          >
+            Like
+          </button>
         </div>
       ))}
     </div>
