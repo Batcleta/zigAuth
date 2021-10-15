@@ -3,17 +3,24 @@ import api from "../api";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useHistory } from "react-router-dom";
+import { useAuth } from "../helpers/AuthContext";
 
 function Login() {
   let history = useHistory();
   const [logMessage, setLogMessage] = useState();
+  const { authState, setAuthState } = useAuth();
 
   const onSubmit = (data) => {
     api.post("/users/login", data).then((resp) => {
       if (resp.data.error) {
         setLogMessage(resp.data);
       } else {
-        sessionStorage.setItem("apiKey", resp.data);
+        localStorage.setItem("apiKey", resp.data.apiKey);
+        setAuthState({
+          username: resp.data.username,
+          id: resp.data.id,
+          status: true,
+        });
         history.push("/");
       }
     });
@@ -35,6 +42,7 @@ function Login() {
 
   return (
     <div>
+      <h3>Faça seu login</h3>
       <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}

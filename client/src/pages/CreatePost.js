@@ -11,7 +11,7 @@ function CreatePost() {
     api
       .post("/posts", data, {
         headers: {
-          apiKey: sessionStorage.getItem("apiKey"),
+          apiKey: localStorage.getItem("apiKey"),
         },
       })
       .then((resp) => {

@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { Users } = require("../models");
 const bcrypt = require("bcrypt");
-
+const { validateToken } = require("../middlewares/AuthMiddleware");
 const { sign } = require("jsonwebtoken");
 
 router.post("/", async (req, res) => {
@@ -36,12 +36,12 @@ router.post("/login", async (req, res) => {
       { username: user.username, id: user.id },
       "importantsecret"
     );
-    res.json(apiKey);
+    res.json({ apiKey: apiKey, username: user.username, id: user.id });
   });
 });
 
-router.get("/", async (req, res) => {
-  res.send("aeeee porra");
+router.get("/auth", validateToken, async (req, res) => {
+  res.json(req.user);
 });
 
 module.exports = router;
